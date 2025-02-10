@@ -1,6 +1,5 @@
-import React from "react";
-import SkillSync from "./components/SkillSync"; // Import the component
-
+import React, { useState } from "react";
+import SkillSync from "./components/SkillSync";
 function App() {
   return (
     <div>
@@ -8,5 +7,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
