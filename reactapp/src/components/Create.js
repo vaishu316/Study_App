@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { db } from "../firebase/config"; // Import Firestore config
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import "./CreateGroup.css";
+import "./Create.css";
 
-const CreateGroup = () => {
+
+const Create = () => {
   const [groupName, setGroupName] = useState("");
   const [adminName, setAdminName] = useState("");
   const [link, setLink] = useState("");
@@ -101,4 +102,4 @@ const CreateGroup = () => {
   );
 };
 
-export default CreateGroup;
+export default Create;

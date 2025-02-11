@@ -16,7 +16,7 @@ export function CreateGroup({ show, handleClose }) {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton style={{ backgroundColor: "#FFD1DC" }}>
-        <Modal.Title>Create Group</Modal.Title>
+        <Modal.Title>CREATE GROUP</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ backgroundColor: "#FFE4E9" }}>
         <Form>
@@ -47,9 +47,9 @@ export function JoinGroup({ show, handleClose }) {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton style={{ backgroundColor: "#FFD1DC" }}>
-        <Modal.Title>Join Group</Modal.Title>
+        <Modal.Title>JOIN GROUP</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ backgroundColor: "#FFE4E9" }}>
+      <Modal.Body style={{ backgroundColor: "none" }}>
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>Enter Your Name</Form.Label>
@@ -74,9 +74,9 @@ export default function SkillSync() {
   const [showJoin, setShowJoin] = useState(false);
 
   const features = [
-    { id: 1, title: "Create Group", description: "Start a new study group for focused learning.", icon: "📁", action: () => setShowCreate(true) },
-    { id: 2, title: "Join Group", description: "Connect with peers and learn together.", icon: "🤝", action: () => setShowJoin(true) },
-    { id: 3, title: "Test Yourself", description: "Assess your knowledge with practice tests.", icon: "📝" },
+    { id: 1, title: "CREATE GROUP", description: "Start a new study group for focused learning.", icon: "📁", action: () => setShowCreate(true) },
+    { id: 2, title: "JOIN GROUP", description: "Connect with peers and learn together.", icon: "🤝", action: () => setShowJoin(true) },
+    { id: 3, title: "TEST YOURSELF", description: "Assess your knowledge with practice tests.", icon: "📝" },
   ];
 
   return (

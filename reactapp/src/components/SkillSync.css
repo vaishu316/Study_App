@@ -1,6 +1,30 @@
-/* General Styles */
+
+@keyframes glowing {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 body {
-  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #f3c4fb, #e0bbff, #d0a2f7, #b891f7, #e9d5ff);
+  background-size: 400% 400%;
+  animation: glowing 12s ease infinite;
+  backdrop-filter: blur(8px);
+}
+@keyframes float {
+  0% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-20px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.6; }
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: float 6s infinite ease-in-out alternate;
+  filter: blur(2px);
 }
 
 .main-container {
@@ -9,7 +33,6 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #cdb4db;
   color: #fff;
   text-align: center;
 }
@@ -28,7 +51,7 @@ body {
 .start-btn {
   background-color: #ffafcc;
   color: #fff;
-  border: none;
+  border: 2px solid #6a0572;
   padding: 10px 20px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -43,13 +66,20 @@ body {
 
 /* Feature Cards */
 .feature-card {
-  background-color: #a2d2ff;
+  background: rgba(72, 166, 238, 0.3); /* Adjusted transparency */
   border-radius: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
+  box-shadow: none; /* Remove unwanted shadows */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   cursor: pointer;
+}
+
+
+.feature-card:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Adds a soft glow */
 }
 
 .feature-icon {

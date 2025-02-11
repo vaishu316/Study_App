@@ -7,14 +7,6 @@ body {
     height: 100vh;
   }
   
-  .container {
-    background: #fffaf3;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    text-align: center;
-  }
   
   h2 {
     color: #5c5c8a;
