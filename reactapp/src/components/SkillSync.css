@@ -95,6 +95,16 @@ body {
   color: #333;
 }
 
+.logo {
+  width: 200px; /* Adjust the size as needed */
+  height: 200px; /* Ensure width and height are equal */
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fits well within the circle */
+  display: block;
+  margin: 0 auto 20px; /* Centers the logo and adds space below */
+  border: 3px solid #ddd; /* Optional: Adds a border around the logo */
+}
+
 /* Footer */
 .footer {
   margin-top: 30px;

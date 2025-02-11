@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ProgressBar, Card, Button, Container, Row, Col, Modal, Form } from "react-bootstrap";
-import { FaHome, FaUsers, FaClipboardList, FaChartBar, FaSignOutAlt, FaArrowLeft } from "react-icons/fa";
+import {
+  ProgressBar, Card, Button, Container, Row, Col
+} from "react-bootstrap";
+import {
+  FaHome, FaUsers, FaClipboardList, FaChartBar, FaSignOutAlt, FaArrowLeft, FaRobot
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Chatbot from "react-chatbot-kit";
+import "react-chatbot-kit/build/main.css";
+import config from "./ChatbotConfig";
+import MessageParser from "./MessageParser";
+import ActionProvider from "./ActionProvider";
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [showChatbot, setShowChatbot] = useState(false);
+
   const categories = [
     { name: "Quantitative Aptitude", progress: 60, color: "#FFB6C1" },
     { name: "Logical Reasoning", progress: 80, color: "#87CEFA" },
@@ -24,6 +35,9 @@ const Dashboard = () => {
           <li className="nav-item"><FaUsers /> Study Groups</li>
           <li className="nav-item"><FaClipboardList /> Assessments</li>
           <li className="nav-item"><FaChartBar /> Progress</li>
+          <li className="nav-item" onClick={() => setShowChatbot(!showChatbot)}>
+            <FaRobot /> AI Chatbot
+          </li>
           <li className="nav-item logout"><FaSignOutAlt /> Logout</li>
         </ul>
       </div>
@@ -62,6 +76,13 @@ const Dashboard = () => {
           </Col>
         </Row>
       </Container>
+
+      {/* Chatbot Popup */}
+      {showChatbot && (
+        <div className="chatbot-container">
+          <Chatbot config={config} messageParser={MessageParser} actionProvider={ActionProvider} />
+        </div>
+      )}
     </div>
   );
 };

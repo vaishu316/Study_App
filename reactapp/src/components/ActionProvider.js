@@ -1,41 +1,42 @@
+import axios from "axios";
+
 class ActionProvider {
-    constructor(createChatBotMessage, setStateFunc) {
-      this.createChatBotMessage = createChatBotMessage;
-      this.setState = setStateFunc;
-    }
-  
-    greet() {
-      const message = this.createChatBotMessage("Hello! How can I assist you today?");
-      this.addMessageToState(message);
-    }
-  
-    handleCreateGroup() {
-      const message = this.createChatBotMessage("To create a group, click on 'Create Group' on the homepage.");
-      this.addMessageToState(message);
-    }
-  
-    handleJoinGroup() {
-      const message = this.createChatBotMessage("To join a group, click on 'Join Group' and paste the invite link.");
-      this.addMessageToState(message);
-    }
-  
-    handleDashboard() {
-      const message = this.createChatBotMessage("To access your dashboard, click 'Go to Dashboard'.");
-      this.addMessageToState(message);
-    }
-  
-    handleUnknown() {
-      const message = this.createChatBotMessage("I'm not sure how to respond to that. Try asking about SkillSync features.");
-      this.addMessageToState(message);
-    }
-  
-    addMessageToState(message) {
-      this.setState((prevState) => ({
-        ...prevState,
-        messages: [...prevState.messages, message],
-      }));
-    }
+  constructor(createChatBotMessage, setStateFunc) {
+    this.createChatBotMessage = createChatBotMessage;
+    this.setState = setStateFunc;
   }
-  
-  export default ActionProvider;
-  
+
+  handleUserMessage = async (message) => {
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo",  // Use latest model
+          messages: [{ role: "user", content: message }],
+        },
+        {
+          headers: {
+            Authorization: `Bearer YOUR_OPENAI_API_KEY`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const botMessage = this.createChatBotMessage(response.data.choices[0].message.content);
+      this.updateChatbotState(botMessage);
+    } catch (error) {
+      console.error("Error fetching OpenAI response:", error);
+      const botMessage = this.createChatBotMessage("Oops! Something went wrong. 😕");
+      this.updateChatbotState(botMessage);
+    }
+  };
+
+  updateChatbotState(message) {
+    this.setState((prevState) => ({
+      ...prevState,
+      messages: [...prevState.messages, message],
+    }));
+  }
+}
+
+export default ActionProvider;
