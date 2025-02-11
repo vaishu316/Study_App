@@ -85,3 +85,27 @@ body {
     background: #ff8fab;
   }
   
+  .invite-link-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    text-align: center;
+    display: block; /* Ensures visibility */
+  }
+  
+  .copy-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block; /* Makes sure button appears */
+  }
+  
+  .copy-btn:hover {
+    background-color: #0056b3;
+  }
+  
