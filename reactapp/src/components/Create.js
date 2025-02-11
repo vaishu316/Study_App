@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./CreateGroup.css";
+import "./Create.css";
 
-const CreateGroup = () => {
+const Create = () => {
   const [groupName, setGroupName] = useState("");
   const [adminName, setAdminName] = useState("");
   const [link, setLink] = useState("");
@@ -64,4 +64,4 @@ const CreateGroup = () => {
   );
 };
 
-export default CreateGroup;
+export default Create;
