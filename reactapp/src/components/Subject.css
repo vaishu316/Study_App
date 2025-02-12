@@ -1,50 +1,60 @@
-.feature-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    grid-gap: 20px; /* Spacing between cards */
-    justify-content: center;
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 20px;
   }
   
-  .feature-card {
-    background: linear-gradient(135deg, #f8e1e7, #e3f2fd); /* Pastel gradient */
-    border-radius: 12px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 topics per row */
+    gap: 20px;
+    justify-content: center;
+    max-width: 900px;
+  }
+  
+  .subject-card {
+    background: #f8f9fa;
     padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.3s;
-    height: 250px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
   }
   
-  .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  .subject-card:hover {
+    transform: scale(1.05);
   }
   
-  .feature-icon {
-    font-size: 2rem;
-    display: block;
+  .subject-icon {
+    font-size: 2.5rem;
     margin-bottom: 10px;
   }
   
-  .feature-title {
-    font-size: 1.2rem;
+  .subject-card.active {
+    background: lightblue;
+    color: white;
     font-weight: bold;
-    color: #333;
-    display: flex;
-  
   }
   
-  @media (max-width: 768px) {
-    .feature-container {
-      grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
-    }
+  .subtopics-list {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    color:black;
   }
   
-  @media (max-width: 480px) {
-    .feature-container {
-      grid-template-columns: repeat(1, 1fr); /* Single column on very small screens */
-    }
+  .subtopic-item {
+    background: pink;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
   }
+  
