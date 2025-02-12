@@ -1,15 +1,14 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SkillSync from "./components/SkillSync";
+import  SkillSync  from "./components/SkillSync";
 import Dashboard from "./components/Dashboard";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SkillSync />} />
-        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/" element={<SkillSync show={true} handleClose={() => {}} />} />
+        <Route path="/Dashboard/*" element={<Dashboard />} />
+
       </Routes>
     </Router>
   );

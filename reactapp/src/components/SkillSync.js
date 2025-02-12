@@ -4,30 +4,46 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { motion } from "framer-motion";
 import { Modal, Form, Button } from "react-bootstrap";
 import "./SkillSync.css";
-import logo from "../categories/logo.png"; // ✅ Import the logo
+import logo from "../categories/logo.png";
+import { db } from "./firebase";
+import { collection, addDoc, getDocs, query, where, updateDoc, arrayUnion } from "firebase/firestore";
 
 export function CreateGroup({ show, handleClose }) {
   const [groupName, setGroupName] = useState("");
   const [adminName, setAdminName] = useState("");
-  const [inviteLink, setInviteLink] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
   const navigate = useNavigate();
 
-  const generateLink = () => {
-    const newLink = `https://skillsync.com/invite/${Math.random().toString(36).substr(2, 8)}`;
-    setInviteLink(newLink);
+  // Generate a random 6-character invite code
+  const generateCode = () => {
+    const newCode = Math.random().toString(36).substr(2, 6).toUpperCase();
+    setInviteCode(newCode);
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(inviteLink);
-    alert("Invite link copied!");
+    navigator.clipboard.writeText(inviteCode);
+    alert("Invite code copied!");
   };
 
-  const handleConfirm = () => {
-    if (groupName.trim() !== "" && inviteLink !== "") {
-      alert("Group Created Successfully!");
-      navigate("/Dashboard"); // ✅ Navigate to create.js
+  const handleConfirm = async () => {
+    if (groupName.trim() !== "" && inviteCode) {
+      try {
+        await addDoc(collection(db, "groups"), {
+          groupName,
+          adminName,
+          inviteCode, // Store the invite code
+          members: [],
+          createdAt: new Date(),
+        });
+
+        alert("Group Created Successfully!");
+        navigate("/dashboard");
+      } catch (error) {
+        console.error("Firestore Error:", error.message);
+        alert(`Failed to create group: ${error.message}`);
+      }
     } else {
-      alert("Please enter a group name and generate a link before confirming.");
+      alert("Please enter a group name and generate an invite code.");
     }
   };
 
@@ -46,15 +62,15 @@ export function CreateGroup({ show, handleClose }) {
             <Form.Label>Enter Admin Name</Form.Label>
             <Form.Control type="text" value={adminName} onChange={(e) => setAdminName(e.target.value)} />
           </Form.Group>
-          <Button variant="primary" className="w-100 mb-3" onClick={generateLink}>
-            Generate Invite Link
+          <Button variant="primary" className="w-100 mb-3" onClick={generateCode}>
+            Generate Invite Code
           </Button>
-          {inviteLink && (
+          {inviteCode && (
             <div className="text-center">
               <p>
-                Invite Link: <a href={inviteLink} target="_blank" rel="noopener noreferrer">{inviteLink}</a>
+                Invite Code: <strong>{inviteCode}</strong>
               </p>
-              <Button variant="secondary" onClick={copyToClipboard}>Copy Link</Button>
+              <Button variant="secondary" onClick={copyToClipboard}>Copy Code</Button>
             </div>
           )}
         </Form>
@@ -69,14 +85,37 @@ export function CreateGroup({ show, handleClose }) {
 
 export function JoinGroup({ show, handleClose }) {
   const [userName, setUserName] = useState("");
-  const [groupUrl, setGroupUrl] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
+  const navigate = useNavigate();
 
-  const handleJoin = () => {
-    if (userName.trim() !== "" && groupUrl.trim() !== "") {
-      alert("Successfully joined the group!");
+  const handleJoin = async () => {
+    if (!userName || !inviteCode) {
+      alert("Please enter your name and a valid invite code.");
+      return;
+    }
+
+    try {
+      const q = query(collection(db, "groups"), where("inviteCode", "==", inviteCode));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        alert("Group not found. Please check the invite code.");
+        return;
+      }
+
+      const groupDoc = querySnapshot.docs[0];
+      const groupRef = groupDoc.ref;
+
+      await updateDoc(groupRef, {
+        members: arrayUnion(userName),
+      });
+
+      alert(`Welcome ${userName}, you've joined the group!`);
+      navigate("/dashboard");
       handleClose();
-    } else {
-      alert("Please enter your name and a valid URL.");
+    } catch (error) {
+      console.error("Error joining group:", error);
+      alert("Failed to join the group. Please try again.");
     }
   };
 
@@ -92,8 +131,8 @@ export function JoinGroup({ show, handleClose }) {
             <Form.Control type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Paste URL</Form.Label>
-            <Form.Control type="text" value={groupUrl} onChange={(e) => setGroupUrl(e.target.value)} />
+            <Form.Label>Enter Invite Code</Form.Label>
+            <Form.Control type="text" value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -106,7 +145,6 @@ export function JoinGroup({ show, handleClose }) {
 }
 
 export default function SkillSync() {
-  const navigate = useNavigate();
   const [showCreate, setShowCreate] = useState(false);
   const [showJoin, setShowJoin] = useState(false);
 
@@ -133,12 +171,8 @@ export default function SkillSync() {
           ))}
         </div>
       </div>
-
-      {/* Modal components for creating and joining groups */}
       <CreateGroup show={showCreate} handleClose={() => setShowCreate(false)} />
       <JoinGroup show={showJoin} handleClose={() => setShowJoin(false)} />
-
-      <footer className="footer">© 2025 SkillSync | All rights reserved.</footer>
     </div>
   );
 }
