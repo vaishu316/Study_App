@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { motion } from "framer-motion";
 import { Modal, Form, Button } from "react-bootstrap";
 import "./SkillSync.css";
+import logo from "../categories/logo.png"; // ✅ Import the logo
 
 export function CreateGroup({ show, handleClose }) {
   const [groupName, setGroupName] = useState("");
@@ -126,11 +127,13 @@ export default function SkillSync() {
   const features = [
     { id: 1, title: "CREATE GROUP", description: "Start a new study group.", icon: "📁", action: () => setShowCreate(true) },
     { id: 2, title: "JOIN GROUP", description: "Connect with peers.", icon: "🤝", action: () => setShowJoin(true) },
+    { id: 2, title: "Test Yourself", description: "Asses your  knowledge with practice tests.", icon: "📝", action: () => setShowJoin(true) },
+
   ];
 
   return (
     <div className="main-container">
-      {/* Added the logo above the title */}
+      {/* ✅ Fixed: Added import for logo */}
       <img src={logo} alt="SkillSync Logo" className="logo" />
 
       <h1 className="title">Welcome to SkillSync 🎯</h1>

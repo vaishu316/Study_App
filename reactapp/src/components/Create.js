@@ -1,25 +1,12 @@
-import { db } from "./firebase"; // Import Firestore instance
-import { collection, addDoc } from "firebase/firestore"; // Firestore functions
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, Form, Button } from "react-bootstrap";
-import app from "./config"; // Make sure the path is correct
-
-export function JoinGroup({ show, handleClose }) {
-  return (
-    show && (
-      <div className="modal">
-        <button onClick={handleClose}>Close</button>
-        <h2>Join a Group</h2>
-      </div>
-    )
-  );
-}
-
+import { createGroup } from "../utils/skillsync"; // Import Firestore function
 
 export function CreateGroup({ show, handleClose }) {
   const [groupName, setGroupName] = useState("");
   const [adminName, setAdminName] = useState("");
+  const [description, setDescription] = useState("");
   const [inviteLink, setInviteLink] = useState("");
   const navigate = useNavigate();
 
@@ -29,22 +16,18 @@ export function CreateGroup({ show, handleClose }) {
   };
 
   const handleConfirm = async () => {
-    if (groupName.trim() !== "" && inviteLink !== "") {
-      try {
-        await addDoc(collection(db, "groups"), {
-          groupName,
-          adminName,
-          inviteLink,
-          createdAt: new Date(),
-        });
-        alert("Group Created Successfully!");
-        navigate("/dashboard");
-      } catch (error) {
-        console.error("Error creating group:", error);
-        alert("Failed to create group. Try again!");
-      }
+    if (groupName.trim() === "" || adminName.trim() === "" || inviteLink === "") {
+      alert("Please fill in all required fields and generate an invite link.");
+      return;
+    }
+
+    const response = await createGroup(groupName, adminName, description, inviteLink);
+
+    if (response.success) {
+      alert("Group Created Successfully!");
+      navigate("/dashboard");
     } else {
-      alert("Please enter a group name and generate a link before confirming.");
+      alert(`Failed to create group: ${response.error}`);
     }
   };
 
@@ -57,19 +40,15 @@ export function CreateGroup({ show, handleClose }) {
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>Enter Group Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={groupName}
-              onChange={(e) => setGroupName(e.target.value)}
-            />
+            <Form.Control type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} required />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Enter Admin Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={adminName}
-              onChange={(e) => setAdminName(e.target.value)}
-            />
+            <Form.Control type="text" value={adminName} onChange={(e) => setAdminName(e.target.value)} required />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Group Description (Optional)</Form.Label>
+            <Form.Control as="textarea" rows={3} value={description} onChange={(e) => setDescription(e.target.value)} />
           </Form.Group>
           <Button variant="primary" className="w-100 mb-3" onClick={generateLink}>
             Generate Invite Link
@@ -77,9 +56,7 @@ export function CreateGroup({ show, handleClose }) {
           {inviteLink && (
             <div className="text-center">
               <p>Invite Link: <a href={inviteLink} target="_blank" rel="noopener noreferrer">{inviteLink}</a></p>
-              <Button variant="secondary" onClick={() => navigator.clipboard.writeText(inviteLink)}>
-                Copy Link
-              </Button>
+              <Button variant="secondary" onClick={() => navigator.clipboard.writeText(inviteLink)}>Copy Link</Button>
             </div>
           )}
         </Form>
