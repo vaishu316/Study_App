@@ -1,33 +1,39 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, Form, Button } from "react-bootstrap";
-import { createGroup } from "../utils/skillsync"; // Import Firestore function
+import { createGroup } from "../utils/createGroup"; // Firestore function
 
-export function CreateGroup({ show, handleClose }) {
+export function Create({ show, handleClose }) {
   const [groupName, setGroupName] = useState("");
   const [adminName, setAdminName] = useState("");
   const [description, setDescription] = useState("");
   const [inviteLink, setInviteLink] = useState("");
   const navigate = useNavigate();
 
+  // Generate a random invite link
   const generateLink = () => {
     const newLink = `https://skillsync.com/invite/${Math.random().toString(36).substr(2, 8)}`;
     setInviteLink(newLink);
   };
 
+  // Handle form submission
   const handleConfirm = async () => {
-    if (groupName.trim() === "" || adminName.trim() === "" || inviteLink === "") {
+    if (!groupName.trim() || !adminName.trim() || !inviteLink) {
       alert("Please fill in all required fields and generate an invite link.");
       return;
     }
 
+    console.log("📤 Sending Data to Firestore...");
+    
     const response = await createGroup(groupName, adminName, description, inviteLink);
 
     if (response.success) {
-      alert("Group Created Successfully!");
+      alert(`✅ Group Created Successfully! ID: ${response.id}`);
+      console.log("🔥 Navigate to Dashboard...");
       navigate("/dashboard");
     } else {
-      alert(`Failed to create group: ${response.error}`);
+      alert(`❌ Failed to create group: ${response.error}`);
+      console.error("🔥 Firestore Error:", response.error);
     }
   };
 

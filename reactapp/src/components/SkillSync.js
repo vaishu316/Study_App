@@ -25,7 +25,7 @@ export function CreateGroup({ show, handleClose }) {
   const handleConfirm = () => {
     if (groupName.trim() !== "" && inviteLink !== "") {
       alert("Group Created Successfully!");
-      navigate("/dashboard");
+      navigate("/Dashboard"); // ✅ Navigate to create.js
     } else {
       alert("Please enter a group name and generate a link before confirming.");
     }
@@ -40,26 +40,20 @@ export function CreateGroup({ show, handleClose }) {
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>Enter Group Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={groupName}
-              onChange={(e) => setGroupName(e.target.value)}
-            />
+            <Form.Control type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Enter Admin Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={adminName}
-              onChange={(e) => setAdminName(e.target.value)}
-            />
+            <Form.Control type="text" value={adminName} onChange={(e) => setAdminName(e.target.value)} />
           </Form.Group>
           <Button variant="primary" className="w-100 mb-3" onClick={generateLink}>
             Generate Invite Link
           </Button>
           {inviteLink && (
             <div className="text-center">
-              <p>Invite Link: <a href={inviteLink} target="_blank" rel="noopener noreferrer">{inviteLink}</a></p>
+              <p>
+                Invite Link: <a href={inviteLink} target="_blank" rel="noopener noreferrer">{inviteLink}</a>
+              </p>
               <Button variant="secondary" onClick={copyToClipboard}>Copy Link</Button>
             </div>
           )}
@@ -95,19 +89,11 @@ export function JoinGroup({ show, handleClose }) {
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>Enter Your Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
+            <Form.Control type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Paste URL</Form.Label>
-            <Form.Control
-              type="text"
-              value={groupUrl}
-              onChange={(e) => setGroupUrl(e.target.value)}
-            />
+            <Form.Control type="text" value={groupUrl} onChange={(e) => setGroupUrl(e.target.value)} />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -127,15 +113,12 @@ export default function SkillSync() {
   const features = [
     { id: 1, title: "CREATE GROUP", description: "Start a new study group.", icon: "📁", action: () => setShowCreate(true) },
     { id: 2, title: "JOIN GROUP", description: "Connect with peers.", icon: "🤝", action: () => setShowJoin(true) },
-    { id: 2, title: "Test Yourself", description: "Asses your  knowledge with practice tests.", icon: "📝", action: () => setShowJoin(true) },
-
+    { id: 3, title: "Test Yourself", description: "Assess your knowledge with practice tests.", icon: "📝", action: () => setShowJoin(true) },
   ];
 
   return (
     <div className="main-container">
-      {/* ✅ Fixed: Added import for logo */}
       <img src={logo} alt="SkillSync Logo" className="logo" />
-
       <h1 className="title">Welcome to SkillSync 🎯</h1>
       <div className="container mt-5">
         <div className="row g-4">

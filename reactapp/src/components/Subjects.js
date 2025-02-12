@@ -1,24 +1,30 @@
 import React from "react";
-import { ListGroup } from "react-bootstrap";
+import  './Subject.css';
 
-const Subjects = () => {
+const topics = [
+  { name: "Aptitude", icon: "📊" },
+  { name: "Data Interpretation", icon: "📈" },
+  { name: "Verbal Ability", icon: "🔤" },
+  { name: "Logical Reasoning", icon: "🧠" },
+  { name: "Verbal Reasoning", icon: "🅰️" },
+  { name: "Non Verbal Reasoning", icon: "🔢" },
+  { name: "Puzzles", icon: "🧩" },
+  { name: "C Programming", icon: "💻" },
+  { name: "C++ Programming", icon: "🔷" },
+  { name: "C# Programming", icon: "🔹" },
+  { name: "Java Programming", icon: "☕" },
+];
+
+const Subjects = ({ onTopicClick }) => {
   return (
-    <>
-      <h4>Your Subjects</h4>
-      <ListGroup className="mb-4">
-        {[
-          "Introduction to Innovation, IP Management, and Entrepreneurship",
-          "Marketing Research & Marketing Management",
-          "Operating Systems",
-          "Design and Analysis of Algorithms",
-          "Web Development Frameworks",
-          "Operations Research",
-          "Aptitude and Coding Skills – II",
-        ].map((subject, index) => (
-          <ListGroup.Item key={index}>{subject}</ListGroup.Item>
-        ))}
-      </ListGroup>
-    </>
+    <div className="feature-container">
+      {topics.map((topic, index) => (
+        <div key={index} className="feature-card" onClick={() => onTopicClick(topic.name)}>
+          <span className="icon">{topic.icon}</span>
+          <h3>{topic.name}</h3>
+        </div>
+      ))}
+    </div>
   );
 };
 

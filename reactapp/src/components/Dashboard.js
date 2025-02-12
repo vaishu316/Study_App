@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
 import Leaderboard from "./Leaderboard";
 import Subjects from "./Subjects";
-import Assessments from "./Assessments";
+import CreateAssessment from "./CreateAssessment"; // Import the CreateAssessment component
 import QuestionOfTheDay from "./QuestionOfTheDay";
 import ActivityWall from "./ActivityWall";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,7 +24,7 @@ const Dashboard = () => {
             <Route path="/" element={<MainContent />} />
             <Route path="leaderboard" element={<Leaderboard />} />
             <Route path="subjects" element={<Subjects />} />
-            <Route path="assessments" element={<Assessments />} />
+            <Route path="createassessment" element={<CreateAssessment />} /> 
             <Route path="question" element={<QuestionOfTheDay />} />
             <Route path="activity" element={<ActivityWall />} />
           </Routes>
