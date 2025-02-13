@@ -8,7 +8,7 @@ const MainContent = () => {
   return (
     <div className="p-4">
       <h2 className="mb-4">
-        Hey, <span className="text-primary">VAISHNAVI D 👋</span>
+        Hey, <span className="text-primary">👋</span>
       </h2>
       <QuestionOfTheDay />
     

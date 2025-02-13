@@ -1,0 +1,102 @@
+[
+    {
+        "question": "Today it is Thursday. After 132 days, it will be",
+        "options": [
+            "A) Sunday",
+            "B) Monday",
+            "C) Tuesday",
+            "D) Wednesday"
+        ],
+        "correctAnswer": "C) Tuesday"
+    },
+    {
+        "question": "A train 120 meters long is running with a speed of 60 km/hr. In what time will it pass a boy who is running at 6 km/hr in the direction opposite to that in which the train is going?",
+        "options": [
+            "A) 6 sec",
+            "B) 5 sec",
+            "C) 7 sec",
+            "D) 8 sec"
+        ],
+        "correctAnswer": "B) 5 sec"
+    },
+    {
+        "question": "Devesh can cover a certain distance in 1 hour 24 minutes by covering two-thirds of the distance at 6 km/hour and the rest at 7 km/hr. Calculate the total distance.",
+        "options": [
+            "A) 8 km",
+            "B) 10 km",
+            "C) 12 km",
+            "D) 14 km"
+        ],
+        "correctAnswer": "B) 10 km"
+    },
+    {
+        "question": "Find the H.C.F, if the numbers are in the ratio of 4 : 5 : 6 and their L.C.M. is 2400.",
+        "options": [
+            "A) 20",
+            "B) 40",
+            "C) 80",
+            "D) 100"
+        ],
+        "correctAnswer": "B) 40"
+    },
+    {
+        "question": "What is the value of c, If 8 is 4% of a, and 4 is 8% of b. c equals b/a.",
+        "options": [
+            "A) 1/4",
+            "B) 1/2",
+            "C) 2",
+            "D) 4"
+        ],
+        "correctAnswer": "C) 2"
+    },
+    {
+        "question": "P and Q take part in a 100 m race. P runs at 6 kmph. P gives Q a start of 8 m and still beats him by 8 seconds. The speed of Q is:",
+        "options": [
+            "A) 3 kmph",
+            "B) 4 kmph",
+            "C) 5 kmph",
+            "D) 5.5 kmph"
+        ],
+        "correctAnswer": "B) 4 kmph"
+    },
+    {
+        "question": "Find the speed of the boat in still water, if a boat covers a certain distance upstream in 2 hours, while it comes back in 1.5 hours. If the speed of the stream is 3 kmph.",
+        "options": [
+            "A) 9 kmph",
+            "B) 10 kmph",
+            "C) 12 kmph",
+            "D) 15 kmph"
+        ],
+        "correctAnswer": "B) 10 kmph"
+    },
+    {
+        "question": "In covering a distance of 40 km, Kamlesh takes 2 hours more than Pankaj. If Kamlesh doubles his speed, then he would take 1 hour less than Pankaj. What is Kamlesh's speed?",
+        "options": [
+            "A) 4 kmph",
+            "B) 5 kmph",
+            "C) 6 kmph",
+            "D) 8 kmph"
+        ],
+        "correctAnswer": "A) 4 kmph"
+    },
+    {
+        "question": "Find the speed of the train, if a train 142 m long passes a pole in 6 seconds.",
+        "options": [
+            "A) 72 kmph",
+            "B) 80 kmph",
+            "C) 85 kmph",
+            "D) 90 kmph"
+        ],
+        "correctAnswer": "A) 72 kmph"
+    },
+    {
+        "question": "The rate at which a sum becomes four times of itself in 25 years at S.I. will be:",
+        "options": [
+            "A) 8%",
+            "B) 12%",
+            "C) 16%",
+            "D) 20%"
+        ],
+        "correctAnswer": "B) 12%"
+    }
+]

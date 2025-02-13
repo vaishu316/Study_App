@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Card, Button, Nav, Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // Import for navigation
 
 const Assessments = () => {
   const [activeTab, setActiveTab] = useState("assessments");
+  const navigate = useNavigate(); // Hook for navigation
 
   const tests = [
     {
@@ -21,12 +23,6 @@ const Assessments = () => {
     },
   ];
 
-  const teamMembers = [
-    { name: "Alice Johnson", role: "Admin" },
-    { name: "Bob Smith", role: "Member" },
-    { name: "Charlie Brown", role: "Moderator" },
-  ];
-
   const currentTime = new Date();
 
   return (
@@ -41,7 +37,6 @@ const Assessments = () => {
         </Nav.Item>
       </Nav>
 
-      {/* Content Section */}
       <div className="mt-3">
         {activeTab === "assessments" ? (
           <Row>
@@ -56,12 +51,17 @@ const Assessments = () => {
                         <Card.Title className="fw-bold">{test.title}</Card.Title>
                         <Card.Text>
                           <strong>Created by:</strong> {test.createdBy} <br />
-                          <strong>Start:</strong> {test.startTime.toLocaleString()} <br />
+                          <strong>Start:</strong> {test.startTime ? test.startTime.toLocaleString() : "Invalid Date"} <br />
                           <strong>Duration:</strong> {test.duration} <br />
-                          <strong>Questions:</strong> {test.Questions}
+                          <strong>Questions:</strong> {test.Questions} <br />
+                          <strong>Status:</strong> <span className={status === "Ongoing" ? "text-success" : "text-danger"}>{status}</span>
                         </Card.Text>
-                        <Button variant="warning" disabled={status !== "Ongoing"}>
-                          Take Test
+                        <Button
+                          variant="warning"
+                          disabled={status !== "Ongoing"}
+                          onClick={() => navigate("/aptitudetest", { replace: true })} // Ensures proper navigation
+                        >
+                          {status === "Ongoing" ? "Take Test" : "Not Available"}
                         </Button>
                       </Card.Body>
                     </Card>
@@ -73,24 +73,7 @@ const Assessments = () => {
             )}
           </Row>
         ) : (
-          <Row>
-            {teamMembers.length > 0 ? (
-              teamMembers.map((member, index) => (
-                <Col md={4} key={index}>
-                  <Card className="mb-3 shadow-sm">
-                    <Card.Body>
-                      <Card.Title>{member.name}</Card.Title>
-                      <Card.Text>
-                        <strong>Role:</strong> {member.role}
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))
-            ) : (
-              <p>No team members available</p>
-            )}
-          </Row>
+          <p>Team Members</p>
         )}
       </div>
     </Container>

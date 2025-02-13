@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
-import Leaderboard from "./Leaderboard";
+import Leaderboard from "./leaderboard";
 import Subjects from "./Subjects";
 import CreateAssessment from "./CreateAssessment"; // Import the CreateAssessment component
 import QuestionOfTheDay from "./QuestionOfTheDay";
